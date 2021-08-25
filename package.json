@@ -1,0 +1,24 @@
+{
+  "name": "funcomp",
+  "version": "0.1",
+  "description": "Funcomp panel",
+  "scripts": {
+    "build": "grafana-toolkit plugin:build",
+    "test": "grafana-toolkit plugin:test",
+    "dev": "grafana-toolkit plugin:dev",
+    "watch": "grafana-toolkit plugin:dev --watch",
+    "sign": "grafana-toolkit plugin:sign"
+  },
+  "author": "jkmnt",
+  "license": "MIT",
+  "devDependencies": {
+    "@grafana/data": "7.5.9",
+    "@grafana/toolkit": "7.5.9",
+    "@grafana/ui": "7.5.9",
+    "@grafana/runtime": "7.5.9",
+    "emotion": "10.0.27"
+  },
+  "engines": {
+    "node": ">=14"
+  }
+}

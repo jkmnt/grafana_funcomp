@@ -17,7 +17,4 @@ export const api = {
   timeSrv,
   contextSrv,
   appEvents,
-  show_message: (severity: 'error' | 'warning' | 'success', strings: string[]) => {
-    appEvents.emit(`alert-${severity}`, strings);
-  },
 };

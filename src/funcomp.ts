@@ -37,13 +37,9 @@ export function Funcomp(props: PanelProps<FuncompOptions>) {
         'props',
         'data',
         'React',
-        'create',
         'css',
-        'handy',
-        'core',
+        'fc',
         'context',
-        'dashboard',
-        'self_panel',
         props.options.render
       );
     } catch (e) {
@@ -56,9 +52,14 @@ export function Funcomp(props: PanelProps<FuncompOptions>) {
 
   const dashboard = core_api.dashboardSrv.getCurrent();
   const self_panel = [...dashboard.panels, dashboard.panelInEdit].find((p) => p?.id == props.id);
-  const handy_funcs = {
+
+  const fc = {
+    ...core_api,
     ...handy,
-  };
+    create: create,
+    dashboard: core_api.dashboardSrv.getCurrent(),
+    panel: self_panel,
+  }
 
   try {
     return React.createElement(
@@ -72,7 +73,7 @@ export function Funcomp(props: PanelProps<FuncompOptions>) {
           height: 100%;
         `,
       },
-      render(props, props.data, React, create, css, handy_funcs, core_api, context.current, dashboard, self_panel) ??
+      render(props, props.data, React, css, fc, context.current) ??
         null
     );
   } catch (e) {

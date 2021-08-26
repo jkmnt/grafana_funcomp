@@ -428,7 +428,7 @@ function Funcomp(props) {
     console.log('compiling renderer');
 
     try {
-      return Function('props', 'data', 'React', 'create', 'css', 'handy', 'core', 'context', 'dashboard', 'self_panel', props.options.render);
+      return Function('props', 'data', 'React', 'css', 'fc', 'context', props.options.render);
     } catch (e) {
       console.warn('failed to compile render', e);
       return e.toString();
@@ -441,13 +441,17 @@ function Funcomp(props) {
     return (p === null || p === void 0 ? void 0 : p.id) == props.id;
   });
 
-  var handy_funcs = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"])({}, handy);
+  var fc = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"])(Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"])(Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"])({}, _coreapi__WEBPACK_IMPORTED_MODULE_4__["api"]), handy), {
+    create: create,
+    dashboard: _coreapi__WEBPACK_IMPORTED_MODULE_4__["api"].dashboardSrv.getCurrent(),
+    panel: self_panel
+  });
 
   try {
     return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement('div', {
       key: props.options.render,
       className: Object(emotion__WEBPACK_IMPORTED_MODULE_2__["css"])(templateObject_1 || (templateObject_1 = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__makeTemplateObject"])(["\n          overflow: hidden;\n          position: relative;\n          width: 100%;\n          height: 100%;\n        "], ["\n          overflow: hidden;\n          position: relative;\n          width: 100%;\n          height: 100%;\n        "])))
-    }, (_a = render(props, props.data, react__WEBPACK_IMPORTED_MODULE_1___default.a, create, emotion__WEBPACK_IMPORTED_MODULE_2__["css"], handy_funcs, _coreapi__WEBPACK_IMPORTED_MODULE_4__["api"], context.current, dashboard, self_panel)) !== null && _a !== void 0 ? _a : null);
+    }, (_a = render(props, props.data, react__WEBPACK_IMPORTED_MODULE_1___default.a, emotion__WEBPACK_IMPORTED_MODULE_2__["css"], fc, context.current)) !== null && _a !== void 0 ? _a : null);
   } catch (e) {
     console.warn('failed to render', e);
     return e.toString();

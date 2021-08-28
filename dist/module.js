@@ -390,9 +390,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var emotion__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! emotion */ "emotion");
 /* harmony import */ var emotion__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(emotion__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _grafana_ui__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @grafana/ui */ "@grafana/ui");
-/* harmony import */ var _grafana_ui__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_grafana_ui__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _coreapi__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./coreapi */ "./coreapi.ts");
+/* harmony import */ var _grafana_data__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @grafana/data */ "@grafana/data");
+/* harmony import */ var _grafana_data__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_grafana_data__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _grafana_ui__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @grafana/ui */ "@grafana/ui");
+/* harmony import */ var _grafana_ui__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_grafana_ui__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _coreapi__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./coreapi */ "./coreapi.ts");
+
 
 
 
@@ -409,14 +412,17 @@ function create(type, props) {
   }
 
   var map = {
-    Button: _grafana_ui__WEBPACK_IMPORTED_MODULE_3__["Button"]
+    Button: _grafana_ui__WEBPACK_IMPORTED_MODULE_4__["Button"],
+    Alert: _grafana_ui__WEBPACK_IMPORTED_MODULE_4__["Alert"],
+    Icon: _grafana_ui__WEBPACK_IMPORTED_MODULE_4__["Icon"],
+    IconButton: _grafana_ui__WEBPACK_IMPORTED_MODULE_4__["IconButton"]
   };
   return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement((_a = map[type]) !== null && _a !== void 0 ? _a : type, props, children);
 }
 
 var handy = {
   show_message: function show_message(severity, strings) {
-    _coreapi__WEBPACK_IMPORTED_MODULE_4__["api"].appEvents.emit("alert-" + severity, strings);
+    _coreapi__WEBPACK_IMPORTED_MODULE_5__["api"].appEvents.emit("alert-" + severity, strings);
   }
 };
 function Funcomp(props) {
@@ -435,16 +441,21 @@ function Funcomp(props) {
     }
   }, [props.options.render]);
   if (typeof render === 'string') return render;
-  var dashboard = _coreapi__WEBPACK_IMPORTED_MODULE_4__["api"].dashboardSrv.getCurrent();
+  var dashboard = _coreapi__WEBPACK_IMPORTED_MODULE_5__["api"].dashboardSrv.getCurrent();
 
   var self_panel = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__spread"])(dashboard.panels, [dashboard.panelInEdit]).find(function (p) {
     return (p === null || p === void 0 ? void 0 : p.id) == props.id;
   });
 
-  var fc = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"])(Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"])(Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"])({}, _coreapi__WEBPACK_IMPORTED_MODULE_4__["api"]), handy), {
+  var fc = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"])(Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"])(Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"])({}, _coreapi__WEBPACK_IMPORTED_MODULE_5__["api"]), handy), {
     create: create,
-    dashboard: _coreapi__WEBPACK_IMPORTED_MODULE_4__["api"].dashboardSrv.getCurrent(),
-    panel: self_panel
+    dashboard: _coreapi__WEBPACK_IMPORTED_MODULE_5__["api"].dashboardSrv.getCurrent(),
+    panel: self_panel,
+    format_value: function format_value(field, value) {
+      return Object(_grafana_data__WEBPACK_IMPORTED_MODULE_3__["getDisplayProcessor"])({
+        field: field
+      })(value);
+    }
   });
 
   try {
@@ -528,6 +539,7 @@ plugin.setPanelOptions(function (builder) {
     defaultValue: DEF_CODE
   });
 });
+plugin.useFieldConfig();
 
 /***/ }),
 

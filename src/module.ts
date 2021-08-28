@@ -50,3 +50,5 @@ plugin.setPanelOptions((builder) => {
       defaultValue: DEF_CODE,
     });
 });
+
+plugin.useFieldConfig();

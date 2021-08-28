@@ -2,10 +2,10 @@ import React from 'react';
 import moment from 'moment';
 import { css } from 'emotion';
 
-import { PanelProps } from '@grafana/data';
+import { PanelProps, getDisplayProcessor } from '@grafana/data';
 
-import { Button } from '@grafana/ui';
-import { api, api as core_api } from './coreapi';
+import { Alert, Button, Icon, IconButton } from '@grafana/ui';
+import { api as core_api } from './coreapi';
 
 export interface FuncompOptions {
   render?: string;
@@ -14,6 +14,9 @@ export interface FuncompOptions {
 function create(type: string, props: any, ...children: any[]) {
   const map = {
     Button: Button,
+    Alert: Alert,
+    Icon: Icon,
+    IconButton: IconButton,
   };
 
   return React.createElement(map[type] ?? type, props, children);
@@ -59,6 +62,7 @@ export function Funcomp(props: PanelProps<FuncompOptions>) {
     create: create,
     dashboard: core_api.dashboardSrv.getCurrent(),
     panel: self_panel,
+    format_value: (field, value) => getDisplayProcessor({field})(value),
   }
 
   try {

@@ -2,11 +2,13 @@
   "extends": "./node_modules/@grafana/toolkit/src/config/tsconfig.plugin.json",
   "include": ["src", "types"],
   "compilerOptions": {
+    "jsx": "react",
     "rootDir": "./src",
     "baseUrl": "./src",
     "typeRoots": ["./node_modules/@types"],
-    "jsx": "react",
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
+    "strict": false,
+    "alwaysStrict": false,
+    "noImplicitAny": false,
+    "noUnusedLocals": false
   }
 }

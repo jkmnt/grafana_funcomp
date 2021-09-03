@@ -38,17 +38,14 @@ function JsEditor({ value, onChange }: { value: string; onChange: (s: string) =>
   });
 }
 
-export const plugin = new PanelPlugin<FuncompOptions>(Funcomp);
-
-plugin.setPanelOptions((builder) => {
-  builder
-    .addCustomEditor({
+export const plugin = new PanelPlugin<FuncompOptions>(Funcomp)
+  .setPanelOptions((builder) => {
+    builder.addCustomEditor({
       id: 'render',
       path: 'render',
       name: 'Render JS',
       editor: JsEditor,
       defaultValue: DEF_CODE,
     });
-});
-
-plugin.useFieldConfig();
+  })
+  .useFieldConfig();

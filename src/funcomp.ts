@@ -4,7 +4,7 @@ import { css } from 'emotion';
 
 import { PanelProps, getDisplayProcessor } from '@grafana/data';
 
-import { Alert, Button, Icon, IconButton } from '@grafana/ui';
+import { Alert, Button, FileUpload, Icon, IconButton } from '@grafana/ui';
 import { api as core_api } from './coreapi';
 
 export interface FuncompOptions {
@@ -17,9 +17,10 @@ function create(type: string, props: any, ...children: any[]) {
     Alert: Alert,
     Icon: Icon,
     IconButton: IconButton,
+    FileUpload: FileUpload
   };
 
-  return React.createElement(map[type] ?? type, props, children);
+  return React.createElement(map[type] ?? type, props, children && children.length ? children : undefined);
 }
 
 const handy = {
@@ -63,6 +64,8 @@ export function Funcomp(props: PanelProps<FuncompOptions>) {
     dashboard: core_api.dashboardSrv.getCurrent(),
     panel: self_panel,
     format_value: (field, value) => getDisplayProcessor({field})(value),
+    datasource: core_api.dataSourceSrv.get(self_panel.datasource), // NOTE: it's the promise
+    targets: self_panel?.targets,
   }
 
   try {

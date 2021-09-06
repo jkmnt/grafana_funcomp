@@ -1,7 +1,8 @@
-import { getBackendSrv, getLocationSrv } from '@grafana/runtime';
+import { getBackendSrv, getDataSourceSrv, getLocationSrv } from '@grafana/runtime';
 
 const backendSrv = getBackendSrv();
 const locationSrv = getLocationSrv();
+const dataSourceSrv = getDataSourceSrv();
 // HACK: steal registered services from the angular root element
 const injector = (window as any)?.angular.element('body').injector();
 const dashboardSrv = injector.get('dashboardSrv');
@@ -17,4 +18,5 @@ export const api = {
   timeSrv,
   contextSrv,
   appEvents,
+  dataSourceSrv,
 };

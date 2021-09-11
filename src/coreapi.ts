@@ -20,3 +20,7 @@ export const api = {
   appEvents,
   dataSourceSrv,
 };
+
+export function toast(strings: string[], severity: 'error' | 'success' | 'warning' = 'error') {
+  api.appEvents.emit(`alert-${severity}`, strings);
+}

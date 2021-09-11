@@ -5,7 +5,7 @@ import { css } from 'emotion';
 import { PanelProps, getDisplayProcessor } from '@grafana/data';
 
 import { Alert, Button, FileUpload, Icon, IconButton } from '@grafana/ui';
-import { api as core_api } from './coreapi';
+import { api as core_api, toast } from './coreapi';
 
 export interface FuncompOptions {
   render?: string;
@@ -27,6 +27,8 @@ const handy = {
   show_message: (severity: 'error' | 'warning' | 'success', strings: string[]) => {
     core_api.appEvents.emit(`alert-${severity}`, strings);
   },
+  toast,
+  sleep: (ms: number) => new Promise((next) => setTimeout(next, ms)),
 };
 
 export function Funcomp(props: PanelProps<FuncompOptions>) {
@@ -37,7 +39,7 @@ export function Funcomp(props: PanelProps<FuncompOptions>) {
   const render = React.useMemo(() => {
     console.log('compiling renderer');
     try {
-      return Function(
+      return new Function(
         'props',
         'data',
         'React',

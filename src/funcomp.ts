@@ -68,6 +68,7 @@ export function Funcomp(props: PanelProps<FuncompOptions>) {
     format_value: (field, value) => getDisplayProcessor({field})(value),
     datasource: core_api.dataSourceSrv.get(self_panel.datasource), // NOTE: it's the promise
     targets: self_panel?.targets,
+    moment: moment,
   }
 
   try {

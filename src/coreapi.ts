@@ -6,7 +6,7 @@ const dataSourceSrv = getDataSourceSrv();
 // HACK: steal registered services from the angular root element
 const injector = (window as any)?.angular.element('body').injector();
 const dashboardSrv = injector.get('dashboardSrv');
-const timeSrv = injector.get('dashboardSrv');
+const timeSrv = injector.get('timeSrv');
 const contextSrv = injector.get('contextSrv');
 // HACK: steal appEvents bus from the backendSrc private stuff
 const appEvents = (backendSrv as any)?.dependencies.appEvents;
